@@ -1,3 +1,3 @@
 # WebController
 ### Core module
-Base http webserver configuration
+Configuration for base http web server
