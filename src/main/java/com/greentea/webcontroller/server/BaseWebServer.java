@@ -3,7 +3,8 @@ package com.greentea.webcontroller.server;
 import com.greentea.webcontroller.http.BaseHttpResponse;
 import com.greentea.webcontroller.http.HttpRequest;
 import com.greentea.webcontroller.http.HttpResponse;
-import com.greentea.webcontroller.http.UrlFormatException;
+import com.greentea.webcontroller.http.exception.UrlFormatException;
+import com.greentea.webcontroller.http.exception.RequestCreationException;
 import com.greentea.webcontroller.server.exception.WebServerException;
 
 public abstract class BaseWebServer extends AbstractWebServer {
@@ -32,7 +33,7 @@ public abstract class BaseWebServer extends AbstractWebServer {
     }
 
     @Override
-    public HttpRequest createRequest(String message) throws WebServerException {
+    public HttpRequest createRequest(String message) throws WebServerException, RequestCreationException {
         try {
             return new HttpRequest(message);
         }

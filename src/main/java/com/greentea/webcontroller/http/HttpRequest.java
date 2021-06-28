@@ -1,6 +1,7 @@
 package com.greentea.webcontroller.http;
 
 import com.greentea.webcontroller.http.exception.RequestCreationException;
+import com.greentea.webcontroller.http.exception.UrlFormatException;
 
 import java.util.Collections;
 import java.util.HashMap;
