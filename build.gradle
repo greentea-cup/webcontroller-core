@@ -1,0 +1,47 @@
+plugins {
+	id 'java'
+	id 'maven-publish'
+}
+
+group maven_group
+version mod_version
+
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_11
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4j_version
+}
+
+java {
+	withJavadocJar()
+	withSourcesJar()
+}
+
+publishing {
+	publications {
+		maven(MavenPublication) {
+			artifact(jar)
+			artifact(javadocJar)
+			artifact(sourcesJar)
+			groupId = maven_group
+			artifactId = archives_base_name
+			version = mod_version
+		}
+	}
+
+	repositories {
+		if (System.getenv("GITHUB_TOKEN") != null) {
+			maven {
+			url = uri("https://maven.pkg.github.com/greentea-cup/webcontroller-core")
+				credentials {
+					username = "greentea-cup"
+					password = System.getenv("GITHUB_TOKEN")
+				}
+			}
+		}
+	}
+}
