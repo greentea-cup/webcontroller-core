@@ -4,9 +4,10 @@ plugins {
 }
 
 group maven_group
-version mod_version
+version version
 
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_HIGHER
+targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
 	mavenCentral()
@@ -29,7 +30,7 @@ publishing {
 			artifact(sourcesJar)
 			groupId = maven_group
 			artifactId = archives_base_name
-			version = mod_version
+			version = version
 		}
 	}
 
