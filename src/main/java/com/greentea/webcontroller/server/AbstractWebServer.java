@@ -5,6 +5,8 @@ import com.greentea.webcontroller.http.HttpResponse;
 import com.greentea.webcontroller.http.exception.RequestCreationException;
 import com.greentea.webcontroller.http.exception.ResponseCreationException;
 import com.greentea.webcontroller.server.exception.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -16,17 +18,23 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public abstract class AbstractWebServer {
+    private static final Logger LOGGER = LogManager.getLogger();
     protected AsynchronousServerSocketChannel server;
 
     public void run() throws WebServerException {
         if (this.server == null) {
             try {
                 this.server = AsynchronousServerSocketChannel.open();
-                this.server.bind(new InetSocketAddress(this.getHost(), this.getPort()));
             }
             catch (IOException e) {
                 throw new WebServerStartException(e);
             }
+			try {
+                this.server.bind(new InetSocketAddress(this.getHost(), this.getPort()));
+			}
+			catch (IOException e) {
+				LOGGER.warn("Cannot bind socket address, this exception will be ignored", e);
+			}
         }
         Future<AsynchronousSocketChannel> future = this.server.accept();
         resolve(future);
