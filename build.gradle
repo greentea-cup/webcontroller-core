@@ -32,7 +32,6 @@ publishing {
 			version = version
 		}
 	}
-
 	repositories {
 		maven {
 		url = uri("https://maven.pkg.github.com/greentea-cup/webcontroller-core")
