@@ -21,20 +21,7 @@ java {
 	withSourcesJar()
 }
 
-publishing {
-	publications {
-		maven(MavenPublication) {
-			artifact(jar)
-			artifact(javadocJar)
-			artifact(sourcesJar)
-			groupId = maven_group
-			artifactId = archives_base_name
-			version = version
-		}
-	}
-	repositories {
-		maven {
-			url = layout.buildDirectory.dir('repos')
-		}
-	}
+artifacts {
+	archives sourcesJar
+	archives javadocJar
 }
